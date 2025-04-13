@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "error_handling.h"
 #include "setup_server.h"
 #include "usage_message.h"
 
@@ -22,9 +23,8 @@ int main(int argc, char* argv[]) {
         }
 
         if (strcmp(argv[ix], "-p") == 0) {
-            // TODO compare length parsed to length of string error chekcing
-            if (argc <= ix + 1 || !sscanf(argv[ix + 1], "%d", &port_number) ||
-                port_number <= 1024) {
+            if (argc <= ix + 1 ||
+                validate_port_number(argv[ix + 1], &port_number) || check_additional_characters(argv[ix + 1])) {
                 usage_message();
                 return 0;
             }
