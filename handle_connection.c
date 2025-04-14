@@ -8,6 +8,10 @@
 #define BUFFER_SIZE 5
 #define BUFFER_MULTIPLIER 2
 
+// takes in a connection_arguments object that contains information about an
+// accepted connection, then will echo each message it recieves from that
+// connection if -v specified in cmd line, will close connection and free memory
+// used for the connection
 void handle_connection(void* connection) {
     connection_arguments* current_connection =
         (connection_arguments*)connection;
@@ -36,8 +40,7 @@ void handle_connection(void* connection) {
                 full_line[full_line_length++] = buffer[ix];
 
                 if (buffer[ix] == '\n') {
-                    full_line[full_line_length] =
-                        '\0';
+                    full_line[full_line_length] = '\0';
 
                     if (current_connection->should_print_messages == 1)
                         write(*current_connection->sock_fd_ptr, full_line,

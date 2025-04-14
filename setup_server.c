@@ -12,6 +12,9 @@
 
 #define LISTEN_BACKLOG 1
 
+// takes in two integers, one for port number and one that specifies if messages
+// should be echo'd, then establishes the server and waits for incoming
+// connection requests, will create a thread for each accepted connection
 void setup_server(int port_number, int should_print_messages) {
     int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in socket_address;
